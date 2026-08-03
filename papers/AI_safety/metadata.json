@@ -1,0 +1,198 @@
+[
+  {
+    "arxiv_id": "2607.27499v1",
+    "title": "A dataset of rated conceptual arguments",
+    "authors": [
+      "Emery Cooper",
+      "Caspar Oesterheld",
+      "Linh Chi Nguyen",
+      "Alexander Kastner",
+      "Ethan Perez"
+    ],
+    "abstract": "Large language models have improved rapidly on tasks with verifiable answers, such as mathematics and programming. Much less is known about their ability to reason about what we call conceptual questions: questions for which no ground truth is realistically accessible and no widely accepted resolution methodology exists, but on which progress can still be made by debating arguments. Most philosophical questions are of this kind, as are central components of questions in AI safety, decision theory, and social choice. Our approach is based on the view that while bottom-line conclusions on such questions are hard to evaluate, individual contextualized arguments can be evaluated far more reliably. We therefore introduce a dataset of 951 argumentative critiques of 442 position texts, spanning topics from AI safety and decision theory to ethics and politics, with 1,458 ratings by six expert raters along dimensions including centrality, strength, correctness, and clarity. We propose two scoring functions and benchmark a range of models. Performance tracks general capability rankings.",
+    "published": "2026-07-29T22:30:59Z",
+    "updated": "2026-07-29T22:30:59Z",
+    "categories": [
+      "cs.AI"
+    ],
+    "abstract_url": "http://arxiv.org/abs/2607.27499v1",
+    "pdf_url": "https://arxiv.org/pdf/2607.27499v1",
+    "local_pdf_path": "papers/AI_safety/001_A_dataset_of_rated_conceptual_arguments.pdf",
+    "download_status": "success"
+  },
+  {
+    "arxiv_id": "2607.25648v1",
+    "title": "Why Public Service AI Governance Frameworks Risk Failing in the Age of General-Purpose AI: Lessons from Policing",
+    "authors": [
+      "Sam Relins",
+      "Daniel Birks"
+    ],
+    "abstract": "Public services face growing pressure to adopt artificial intelligence (AI) to close the gap between rising demand and falling resources. That pressure has intensified with general-purpose AI (GPAI): AI built on large language models that can be directed by prompt alone to perform an effectively unbounded range of tasks. We argue that the properties that make these models attractive - their generality, accessibility, and low deployment cost - undermine the conditions under which AI safety has historically been pursued. The safety concepts that public service governance frameworks foreground - accuracy, bias, explainability, and accountability - were made tractable by narrow, purpose-built AI, and the mitigations that guidance documents prescribe presuppose exactly what GPAI removes. Accuracy cannot be quantified over unbounded outputs. Bias cannot be disaggregated when outputs are free-text judgements rather than categorical predictions. Explainability gives way to the appearance of explanation, and accountability erodes as outputs are optimized to persuade. We develop this through the case of policing, where the consequences of governance failure are most severe, and show why the same failure is likely to recur across other public services. The two mitigations that dominate policing AI strategy - expert evaluation and human-in-the-loop oversight - both rest on assumptions that GPAI violates. Safety assurance thus shifts from an intrinsic feature of building an AI tool to an optional add-on. We recommend a clear taxonomic distinction between narrow and general-purpose AI in governance documentation, a preference for technological parsimony, a pause on operational deployment of GPAI in policing until adequate evidence exists, and a coordinated national safety infrastructure with the authority to generate that evidence and determine when responsible deployment is achievable.",
+    "published": "2026-07-28T12:34:04Z",
+    "updated": "2026-07-28T12:34:04Z",
+    "categories": [
+      "cs.CY",
+      "cs.AI"
+    ],
+    "abstract_url": "http://arxiv.org/abs/2607.25648v1",
+    "pdf_url": "https://arxiv.org/pdf/2607.25648v1",
+    "local_pdf_path": "papers/AI_safety/002_Why_Public_Service_AI_Governance_Frameworks_Risk_Failing_in_the_Age_of_General-Purpose_AI_Lessons_from_Policing.pdf",
+    "download_status": "success"
+  },
+  {
+    "arxiv_id": "2607.24243v1",
+    "title": "Epistemic Norms for AI Safety and Alignment Research",
+    "authors": [
+      "Keivan Navaie"
+    ],
+    "abstract": "Mainstream AI research emphasises capability growth and tolerates low failure rates when average-case performance is high. AI safety and alignment research has a different mission: to ensure that catastrophic failures never occur, under sparse evidence, adversarial dynamics, and fat-tailed risk. We argue that the two domains differ along two analytically independent axes---{\\it capability profile}, demonstrating the absence of hazardous behaviours rather than the presence of positive capabilities, and {\\it risk profile}, bounding worst-case outcomes under fat-tailed uncertainty rather than optimising average-case performance---and that mainstream epistemic practices are inadequate on both. Building on a structured synthesis grounded in a preregistered bibliometric baseline, we identify five cross-cutting gap dimensions in current alignment research, including the near-absence of institutionalised independent verification. To address these gaps, we propose {\\sc ECAISA}, an Epistemic Code for AI Safety and Alignment comprising eight principles, a three-level scoring rubric, a four-level disclosure ladder that reconciles transparency with information-hazard and commercial-confidentiality constraints, a tiered applicability scheme, an information-hazard adjudication procedure, and seven anti-gaming mechanisms. {\\sc ECAISA} does not certify that any AI system is safe; it constrains how safety-relevant research claims are documented, checked, and relied upon, with auditability rather than certification as its governance target.",
+    "published": "2026-07-27T10:22:46Z",
+    "updated": "2026-07-27T10:22:46Z",
+    "categories": [
+      "cs.AI"
+    ],
+    "abstract_url": "http://arxiv.org/abs/2607.24243v1",
+    "pdf_url": "https://arxiv.org/pdf/2607.24243v1",
+    "local_pdf_path": "papers/AI_safety/003_Epistemic_Norms_for_AI_Safety_and_Alignment_Research.pdf",
+    "download_status": "success"
+  },
+  {
+    "arxiv_id": "2607.24866v1",
+    "title": "The Missing Layer: Specification Infrastructure for AI Oversight",
+    "authors": [
+      "Satyam Kumar",
+      "Saurabh Jha"
+    ],
+    "abstract": "AI safety has a missing layer. Interpretability, formal methods, security engineering, evaluation methodology, and reinforcement-learning safety each produce substantial work, but the resulting artifacts do not compose into deployable oversight: every team fielding an agentic system builds its own audit schema, policy dialect, monitoring stack, and escalation path, mostly reinventions of patterns understood elsewhere. We diagnose this as a coordination gap, not a research gap, and propose a two-axis taxonomy: five technical layers (Legibility, Specification, Mediation, Evaluation, Escalation) crossed with six concerns spanning alignment, robustness, adversarial defense, security, governance, and accountability, populating the resulting 5x6 matrix with existing work. Layer 2 (Specification), where humans translate intent into machine-checkable artifacts, is the connective tissue every layer depends on, yet it lacks four marks of a mature engineering discipline: shared vocabulary, design principles, composability standards, and governance practices. We propose six design principles for Layer 2, from elicitability and composability to adversary-awareness, traceability, and governability, made concrete through worked examples and a reference architecture turning specifications into runtime enforcement, evaluation, and escalation. Existing systems such as Cedar, Constitutional AI, and Open Policy Agent each address a fragment of Layer 2 well and the matrix poorly; treating them as fragments of one shared layer makes composition tractable. As evidence, we introduce CARMA, a Layer 2 prototype for autonomous ETL agents in which one specification drives enforcement, evaluation, and escalation, with every decision traceable to a versioned specification, naming what AI oversight is missing and giving independent teams principles to build the missing pieces so they compose.",
+    "published": "2026-07-26T18:12:41Z",
+    "updated": "2026-07-26T18:12:41Z",
+    "categories": [
+      "cs.CR"
+    ],
+    "abstract_url": "http://arxiv.org/abs/2607.24866v1",
+    "pdf_url": "https://arxiv.org/pdf/2607.24866v1",
+    "local_pdf_path": "papers/AI_safety/004_The_Missing_Layer_Specification_Infrastructure_for_AI_Oversight.pdf",
+    "download_status": "success"
+  },
+  {
+    "arxiv_id": "2607.24859v1",
+    "title": "The Mirage of LLM Guardrails: A Case Study in AI-Assisted Medical Note Manipulation",
+    "authors": [
+      "Davis Yadav",
+      "Amulya Yadav"
+    ],
+    "abstract": "The rapid deployment of large language models (LLMs) in healthcare settings makes the reliability of their built-in guardrails against malicious queries a question of urgent practical consequence. Yet the robustness of these mechanisms against deliberate misuse (in the healthcare context) remains poorly understood. In this paper, we investigate this question empirically, using AI-assisted medical note manipulation as a concrete case study. We make four novel contributions. First, we develop a reproducible manipulation pipeline that takes publicly available seed medical note templates and use commercial LLMs to produce customized manipulated notes by substituting patient names, provider identities, dates, and medical conditions across multiple model families, input formats, and prompt phrasings. Second, we conduct a systematic empirical evaluation of LLM guardrail robustness for medical note manipulation. Our experimental results reveal substantial weaknesses and inconsistencies in contemporary commercial LLM guardrails, including low refusal rates for several model families. Third, we utilize a combination of automated metrics and human annotation-based metrics to assess the correctness of requested manipulations. Fourth, we conduct a user-study to assess the believability of manipulated medical notes, finding that the best manipulations are visually indistinguishable from original documents to human raters. Finally, we discuss implications for responsible guardrail design in LLMs, AI safety policies, and the broader ethics of deploying LLMs in healthcare settings.",
+    "published": "2026-07-26T07:46:28Z",
+    "updated": "2026-07-26T07:46:28Z",
+    "categories": [
+      "cs.CR"
+    ],
+    "abstract_url": "http://arxiv.org/abs/2607.24859v1",
+    "pdf_url": "https://arxiv.org/pdf/2607.24859v1",
+    "local_pdf_path": "papers/AI_safety/005_The_Mirage_of_LLM_Guardrails_A_Case_Study_in_AI-Assisted_Medical_Note_Manipulation.pdf",
+    "download_status": "success"
+  },
+  {
+    "arxiv_id": "2607.23365v1",
+    "title": "On AI Safety and Security Technical Debt in Engineering AI-Enabled Systems",
+    "authors": [
+      "Muhammad Tukur",
+      "Hayatullahi B. Adeyemo",
+      "Tao Chen",
+      "Nour Ali",
+      "Anis Zarrad",
+      "Rick Kazman",
+      "Marco Agus",
+      "Rami Bahsoon"
+    ],
+    "abstract": "Artificial intelligence (AI) systems are increasingly deployed in high-stakes domains such as healthcare, autonomous driving, finance, and education. While these systems offer powerful data-driven and adaptive capabilities, their complexity, rapid evolution, and dependence on dynamic data pipelines introduce new forms of engineering liability collectively referred to as AI Technical Debts (AITDs). AITDs arise from root causes spanning data governance, model implementation, algorithm design, architectural decisions, operational processes, documentation practices, and testing adequacy. Unlike conventional technical debt, many AITDs are latent and propagate across tightly coupled AI pipelines, leading to maintenance challenges, reliability degradation, and heightened safety or security risks. Guided by the principles of AI Trust, Risk, and Security Management (AI TRiSM), this study reinterprets technical debt through the interconnected dimensions of trustworthiness, focusing on AI safety and security technical debts. We conduct a systematic review of 60 primary studies and identify 31 distinct types of AITD, which are organized into a root-cause-oriented taxonomy comprising seven classes. The analysis examines how these debts map to 18 trust-related concerns, including 6 safety hazards and 12 security vulnerabilities. To support mitigation, the review synthesizes 34 actionable guidelines (8 safety and 26 security) targeting the prevention, detection, and reduction of AITDs across the AI lifecycle. Building on these findings, we introduce AITD-MAP, an integrated framework that connects the AITD taxonomy, quality and risk impacts, and mitigation strategies into a unified structure for risk-aware AI engineering. The framework aims to assist AI software engineers in making AI safety and security technical debts visible, understanding their root causes, and mitigating their presence.",
+    "published": "2026-07-25T21:15:41Z",
+    "updated": "2026-07-25T21:15:41Z",
+    "categories": [
+      "cs.SE",
+      "cs.AI",
+      "cs.CR"
+    ],
+    "abstract_url": "http://arxiv.org/abs/2607.23365v1",
+    "pdf_url": "https://arxiv.org/pdf/2607.23365v1",
+    "local_pdf_path": "papers/AI_safety/006_On_AI_Safety_and_Security_Technical_Debt_in_Engineering_AI-Enabled_Systems.pdf",
+    "download_status": "success"
+  },
+  {
+    "arxiv_id": "2607.22925v1",
+    "title": "Not All LLM Reasoning is Visible in the Chain-of-Thought",
+    "authors": [
+      "Vatsal Baherwani",
+      "Tom Goldstein",
+      "Ashwinee Panda"
+    ],
+    "abstract": "A key question for AI safety is whether a language model expresses all of its reasoning in its output tokens. We demonstrate a concrete failure mode where frontier models exhibit invisible reasoning by leveraging semantically irrelevant filler tokens to improve performance on synthetic reasoning tasks. We evaluate 13 frontier language models across three tasks and find that many models benefit significantly from filler tokens, with accuracy improvements of up to 13 percentage points. The benefit depends on which tokens are used and differs across models. We further show that filler tokens enable Claude Opus 4.5 to satisfy a hidden modular arithmetic constraint without sacrificing accuracy on its primary task, demonstrating that invisible reasoning can serve objectives entirely invisible to CoT monitoring. Reinforcement learning gives Qwen3-235B strong preferences over filler token content, but neither RL nor supervised fine-tuning produces a filler token benefit that persists at test time. Our results indicate that frontier models already perform consequential computation with no interpretable trace in their output tokens.",
+    "published": "2026-07-24T21:32:48Z",
+    "updated": "2026-07-24T21:32:48Z",
+    "categories": [
+      "cs.CL",
+      "cs.AI",
+      "cs.LG"
+    ],
+    "abstract_url": "http://arxiv.org/abs/2607.22925v1",
+    "pdf_url": "https://arxiv.org/pdf/2607.22925v1",
+    "local_pdf_path": "papers/AI_safety/007_Not_All_LLM_Reasoning_is_Visible_in_the_Chain-of-Thought.pdf",
+    "download_status": "success"
+  },
+  {
+    "arxiv_id": "2607.20379v1",
+    "title": "Train the Model, Not the Reader: Decodability Supervision for Verifiable Activation Explanations",
+    "authors": [
+      "Hiskias Dingeto"
+    ],
+    "abstract": "Natural-language autoencoders score explanations of hidden activations by reconstruction: an explanation is deemed faithful if the activation can be regenerated from it. The test is structurally insensitive to individual false claims: if flipping a claim does not change the reconstruction, the claim is never penalized. We show the test is passed in two ways, neither faithful. On a released Qwen-2.5-7B verbalizer, explanations reconstruct well above chance while ~2% of specific claims are reconstruction-dependent, so the score tracks gist, not specific facts. Under exact synthetic ground truth, the standard recipe develops co-adapted private codes (false wording the reconstruction depends on) in 5/5 runs, and fixes that leave the target model unchanged do not help. We contribute two audit protocols, the grounded-vs-true cross and the evaluator swap, and RECAP (Readable Encodings via Co-trained Auxiliary Predictors): linear heads trained alongside the target model to keep designated content decodable. On RECAP-trained sandbox models, fresh verbalizers state the designated content truly and the codes vanish, at a +0.001-nat cost. This replicates on a pretrained Pythia-160M: the content becomes reliably probe-decodable, though a fresh verbalizer conveys it only in part (truth 0.44-0.46 vs a near-zero control). For interpretability, high reconstruction does not certify individual claims. For AI safety, RECAP makes designated internal content independently checkable against probes rather than asserted by prose a model can game: an independent probe scores the verbalizer's true claims above its false ones (AUC 0.96, vs 0.82 without RECAP). Against an adversary that edits an explanation to maximize the reconstruction score while lying (suppressing ~87% of its lie penalty), the RECAP probe still flags the lies (AUC 0.95) while the control probe collapses to chance (0.51).",
+    "published": "2026-07-22T17:10:23Z",
+    "updated": "2026-07-22T17:10:23Z",
+    "categories": [
+      "cs.AI",
+      "cs.CL"
+    ],
+    "abstract_url": "http://arxiv.org/abs/2607.20379v1",
+    "pdf_url": "https://arxiv.org/pdf/2607.20379v1",
+    "local_pdf_path": "papers/AI_safety/008_Train_the_Model,_Not_the_Reader_Decodability_Supervision_for_Verifiable_Activation_Explanations.pdf",
+    "download_status": "success"
+  },
+  {
+    "arxiv_id": "2607.19292v1",
+    "title": "The safety failures we are not instrumenting: a perspective on hidden safety-critical challenges in modern AI systems",
+    "authors": [
+      "Gjergji Kasneci",
+      "Enkelejda Kasneci"
+    ],
+    "abstract": "Current AI safety discourse still focuses disproportionately on visible failures, including obvious harms, dramatic misuse, and hypothetical catastrophic scenarios. That focus is incomplete. In deployed systems, many of the most consequential failures are quieter: plausible rather than spectacular, distributed across components rather than localized in a single output, and normalized by workflows before they are recognized as hazards. We argue that a central safety challenge in modern AI systems is increasingly not only whether a model emits a harmful response, but whether the broader socio-technical system preserves the conditions under which errors remain visible, contestable, containable, and recoverable. We propose a five-layer framework for diagnosing these hidden risks: (1) epistemic integrity, concerning whether evidence and uncertainty are represented honestly enough to support calibrated reliance; (2) control integrity, concerning whether authority, permissions, and action boundaries remain robust under attack and optimization; (3) temporal integrity, concerning whether safety holds across sessions, memory updates, and deployment drift; (4) organizational integrity, concerning whether institutions retain the capacity to audit, assign responsibility, and intervene effectively; and (5) ecosystem integrity, concerning whether AI systems preserve rather than erode the information environment on which future oversight depends. Across these layers, we identify under-recognized risk patterns, including overreliance, uncertainty and legitimacy laundering in retrieval, prompt injection, reward hacking, memory poisoning, evaluation deception, fictional human oversight, synthetic evidence pollution, and model collapse. We conclude with design and governance recommendations and a research agenda for shifting AI safety from model-centric evaluation toward socio-technical reliability.",
+    "published": "2026-07-21T17:02:37Z",
+    "updated": "2026-07-21T17:02:37Z",
+    "categories": [
+      "cs.CY",
+      "cs.AI",
+      "cs.HC"
+    ],
+    "abstract_url": "http://arxiv.org/abs/2607.19292v1",
+    "pdf_url": "https://arxiv.org/pdf/2607.19292v1",
+    "local_pdf_path": "papers/AI_safety/009_The_safety_failures_we_are_not_instrumenting_a_perspective_on_hidden_safety-critical_challenges_in_modern_AI_systems.pdf",
+    "download_status": "success"
+  },
+  {
+    "arxiv_id": "2607.18459v1",
+    "title": "Intelligent Cause Prioritisation? An Analysis of AI Policy Priorities and Governance in Africa",
+    "authors": [
+      "Osaremen Iluobe",
+      "Kisso Selvan"
+    ],
+    "abstract": "The rapid improvement of AI systems has intensified debate about humanity's economic, political, social, and existential future. As AI reshapes expectations about what lies ahead, policy choices and institutional responses will play a crucial role in determining who benefits, who bears the costs, and whether the most serious risks can be mitigated. Africa remains relatively overlooked in these discussions, partly because it is largely a consumer rather than a producer of frontier AI systems, and also because many countries on the continent continue to face pressing development challenges. Given the catch-up imperative, governments across Africa are eager to embrace AI as a means for accelerating economic transformation. Drawing on speeches, press releases, public statements, and national AI strategies/frameworks, this essay argues that while African governments are highly attentive to AI's opportunities, they devote comparatively little attention to AI safety.",
+    "published": "2026-07-20T19:16:39Z",
+    "updated": "2026-07-20T19:16:39Z",
+    "categories": [
+      "cs.CY"
+    ],
+    "abstract_url": "http://arxiv.org/abs/2607.18459v1",
+    "pdf_url": "https://arxiv.org/pdf/2607.18459v1",
+    "local_pdf_path": "papers/AI_safety/010_Intelligent_Cause_Prioritisation_An_Analysis_of_AI_Policy_Priorities_and_Governance_in_Africa.pdf",
+    "download_status": "success"
+  }
+]
