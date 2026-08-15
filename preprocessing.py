@@ -41,24 +41,45 @@ def remove_repetitive_ngrams(text, n=3, threshold=3):
     repetitive = [ngram for ngram, count in counts.items() if count >= threshold]
 
     for phrase in repetitive:
-        # regex-safe version of the phrase
         escaped_phrase = re.escape(phrase)
-        # match the phrase repeated 2+ times with optional whitespace
         text = re.sub(rf'(?:{escaped_phrase}\s*){{{threshold},}}', phrase + ' ', text)
 
-    # Remove extra spaces
     text = re.sub(r'\s{2,}', ' ', text).strip()
     return text
 
 def preprocess(text) :
-    # step1 = clean_html_and_filter_lang(text)
+    # chunking text
     chunks = [
         paragraph.strip()
         for paragraph in text.split("\n\n")
         if paragraph.strip()
     ]
+    original_chunks = len(chunks)
+    # minhash deduplication
     step2 = minhash_deduplication(chunks)
-    step3 = [strip_pii(t) for t in step2]
-    cleaned_data = [remove_repetitive_ngrams(t) for t in step3]
+    dedup_removed = original_chunks - len(step2)
     
-    return "\n\n".join(cleaned_data)
+    # PII stripping and repetitive n-gram removal
+    pii_replacements = 0
+    cleaned_data = []
+
+    for chunk in step2:
+        before = chunk
+        step3 = strip_pii(chunk)
+
+        if step3 != before:
+            pii_replacements += 1
+
+        step4 = remove_repetitive_ngrams(step3)
+        cleaned_data.append(step4)
+    
+    cleaned_text = "\n\n".join(cleaned_data)
+    
+    print(f"Paragraphs: {original_chunks}")
+    print(f"Duplicates removed: {dedup_removed}")
+    print(f"PII replacements: {pii_replacements}")
+    
+    print("Original length:", len(text))
+    print("Processed length:", len(cleaned_text))
+    
+    return cleaned_text
