@@ -18,24 +18,39 @@ Output will be ready for model training in structure JSON format
 # RAG component
 Performed with preprocessed texts and metadata.
 
-Preprocessed text chunks
-(500 tokens, 50-token overlap)
-        ↓
-Embedding model
-        ↓
-Vector store (Chroma)
-        ↓
-User query
-        ↓
-Query converted into embedding
-        ↓
-Retriever searches Chroma
-        ↓
-Most relevant text chunks + metadata
-        ↓
-QA Chain
-        ↓
-LLM (gpt-4) receives query + retrieved chunks
-        ↓
-Answer
+```mermaid
+flowchart TD
 
+    subgraph INDEXING["Document Indexing"]
+        A["Preprocessed arXiv Text"]
+        B["Split into Chunks<br/>500 tokens, 50-token overlap"]
+        C["Embedding Model"]
+        D[("Chroma Vector Store")]
+
+        A --> B
+        B --> C
+        C --> D
+    end
+
+    subgraph QUERY["Query & Retrieval"]
+        E["User Query"]
+        F["Convert Query to Embedding"]
+        G["Retriever"]
+        H["Relevant Chunks + Metadata"]
+
+        E --> F
+        F --> G
+        D --> G
+        G --> H
+    end
+
+    subgraph GENERATION["Answer Generation"]
+        I["QA Chain"]
+        J["GPT-4<br/>Query + Retrieved Context"]
+        K["Grounded Answer<br/>+ Sources"]
+
+        H --> I
+        E --> I
+        I --> J
+        J --> K
+    end
