@@ -2,7 +2,18 @@ from datasketch import MinHash, MinHashLSH
 # from langdetect import detect
 # from bs4 import BeautifulSoup
 import re
+import shutil
 from collections import Counter
+from pathlib import Path
+
+def copy_metadata_files(input_directory: Path, output_directory: Path) -> None:
+    for metadata_path in input_directory.rglob("metadata.json"):
+        relative_path = metadata_path.relative_to(input_directory)
+        output_path = output_directory / relative_path
+
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(metadata_path, output_path)
+    print(f"Copied metadata.json files from {input_directory} to {output_directory}.")
 
 def minhash_deduplication(texts, threshold=0.7):
     lsh = MinHashLSH(threshold=threshold, num_perm=128)

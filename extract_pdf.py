@@ -1,6 +1,6 @@
 from pathlib import Path
 import pymupdf
-from preprocessing import preprocess
+from preprocessing import preprocess, copy_metadata_files
 
 def extract_pdf_text(pdf_path: Path) -> str:
     """Extract embedded text from one PDF."""
@@ -15,7 +15,6 @@ def extract_pdf_text(pdf_path: Path) -> str:
             )
 
     return "".join(pages).strip()
-
 
 def extract_all_pdfs(input_directory: Path, output_directory: Path) -> None:
     """Extract text from every PDF under the input directory."""
@@ -62,9 +61,12 @@ def extract_all_pdfs(input_directory: Path, output_directory: Path) -> None:
     print(f"Successful: {successful}")
     print(f"Failed: {failed}")
 
-
 if __name__ == "__main__":
     extract_all_pdfs(
-        input_directory=Path("raw-text"),
+        input_directory=Path("raw_text"),
+        output_directory=Path("processed_text"),
+    )
+    copy_metadata_files(
+        input_directory=Path("raw_text"),
         output_directory=Path("processed_text"),
     )

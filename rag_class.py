@@ -1,19 +1,20 @@
 import os
 import numpy as np
+import json
 from langchain_community.document_loaders import TextLoader
 from langchain_chroma import Chroma
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.prompts import ChatPromptTemplate, PromptTemplate
 
 from langchain_classic.chains import create_retrieval_chain
 from langchain_classic.chains.combine_documents import create_stuff_documents_chain
-
+from langchain_core.runnables import RunnableLambda
 from pathlib import Path
 
 class RAGClass:
     def __init__(self, data_path) :
-        self.data_path = data_path
+        self.data_path = Path(data_path)
         self.documents = []
         self.text_chunks = []
         self.vectorstore = None
@@ -22,21 +23,47 @@ class RAGClass:
         self.embeddings = None
         self.result = None
         
+        self.paper_metadata = {}
+        
     def load_documents(self):
         self.documents = []
-        txt_files = Path(self.data_path).rglob("*.txt")
+        self.paper_metadata = {}
+        metadata_files = list(self.data_path.rglob("metadata.json"))
+        
+        if not metadata_files:
+            raise FileNotFoundError(
+            f"No metadata.json files found under: {self.data_path.resolve()}"
+            )
+        
+        for metadata_path in metadata_files:
+            batch_folder = metadata_path.parent
+            # Load metadata for this batch
+            with open(metadata_path, "r", encoding="utf-8") as f:
+                batch_metadata = json.load(f)
+            metadata_lookup = {}
 
-        for txt_file in txt_files:
-            loader = TextLoader(str(txt_file), encoding="utf-8")
-            documents = loader.load()
+            for metadata in batch_metadata:
+                paper_id = Path(metadata["local_pdf_path"]).stem
+                metadata_lookup[paper_id] = metadata
+            for txt_file in batch_folder.glob("*.txt"):
+                paper_id = txt_file.stem
+            
+                loader = TextLoader(str(txt_file), encoding="utf-8")
+                documents = loader.load()
 
-            # Keep track of which paper each document came from
-            for document in documents:
-                document.metadata["source"] = str(txt_file)
-                document.metadata["paper_name"] = txt_file.stem
+                # Store full metadata ONCE, will access after relevant chunks are found
+                if paper_id in metadata_lookup:
+                    self.paper_metadata[paper_id] = metadata_lookup[paper_id]
 
-            self.documents.extend(documents)
-            print(f"Loaded {len(self.documents)} documents.")
+                # Only attach lightweight ID to document
+                for document in documents:
+                    document.metadata = {
+                        "paper_id": paper_id
+                    }
+
+                self.documents.extend(documents)
+        print(f"Loaded {len(self.documents)} documents.")
+        print(f"Loaded metadata for {len(self.paper_metadata)} papers.")
 
         return self.documents
     
@@ -53,17 +80,47 @@ class RAGClass:
     def setup_retriever(self):
         if self.vectorstore is None:
             raise ValueError("Vectorstore not initialized.")
-        self.retriever = self.vectorstore.as_retriever()
+        base_retriever = self.vectorstore.as_retriever(search_kwargs={"k": 4})
+        
+        def retrieve_with_metadata(inputs):
+            query = inputs["input"]
+
+            docs = base_retriever.invoke(query)
+
+            for doc in docs:
+                paper_id = doc.metadata["paper_id"]
+
+                metadata = self.paper_metadata.get(
+                    paper_id,
+                    {}
+                )
+
+                doc.metadata["title"] = metadata.get(
+                    "title",
+                    "Unknown"
+                )
+
+                doc.metadata["arxiv_id"] = metadata.get(
+                    "arxiv_id",
+                    "Unknown"
+                )
+
+                authors = metadata.get("authors", [])
+
+                doc.metadata["authors"] = ", ".join(authors)
+
+            return docs
+        self.retriever = RunnableLambda(retrieve_with_metadata)
         print("Retriever set up from vectorstore.")
-        print("Retriever details:", self.retriever)
+        print("Retriever details:", base_retriever)
         return self.retriever
     
     def setup_qa_chain(self):
         if self.retriever is None:
             raise ValueError("Retriever not initialized.")
         llm = ChatOpenAI(
-            model_name="gpt-4",
-            temperature=0)
+            model="gpt-5-nano"
+        )
         
         prompt = ChatPromptTemplate.from_messages([
             (
@@ -75,7 +132,7 @@ class RAGClass:
 
                 For every factual claim:
                 - It must be supported by the retrieved context.
-                - Cite the corresponding source metadata.
+                - Cite the corresponding source metadata with page numbers.
 
                 If a claim cannot be supported by the retrieved context,
                 do not include it.
@@ -91,9 +148,20 @@ class RAGClass:
             ),
             ("human", "{input}")
         ])
+        
+        document_prompt = PromptTemplate.from_template(
+            """
+            Paper: {title}
+            Authors: {authors}
+            arXiv ID: {arxiv_id}
+
+            Content:
+            {page_content}
+            """
+        )
 
         # QA chain is set up below to connect llm and retriever
-        document_chain = create_stuff_documents_chain(llm, prompt)
+        document_chain = create_stuff_documents_chain(llm, prompt, document_prompt=document_prompt)
         self.qa_chain = create_retrieval_chain(self.retriever, document_chain)
         print("QA chain set up.")
         return self.qa_chain
