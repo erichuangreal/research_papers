@@ -1,7 +1,7 @@
-import os
 import numpy as np
 import json
-from langchain_community.document_loaders import TextLoader
+import re
+from langchain_core.documents import Document
 from langchain_chroma import Chroma
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain_text_splitters import RecursiveCharacterTextSplitter
@@ -47,21 +47,29 @@ class RAGClass:
                 metadata_lookup[paper_id] = metadata
             for txt_file in batch_folder.glob("*.txt"):
                 paper_id = txt_file.stem
-            
-                loader = TextLoader(str(txt_file), encoding="utf-8")
-                documents = loader.load()
-
                 # Store full metadata ONCE, will access after relevant chunks are found
                 if paper_id in metadata_lookup:
                     self.paper_metadata[paper_id] = metadata_lookup[paper_id]
+                text = txt_file.read_text(encoding="utf-8")
+                
+                # Splitting and labelling pg numbers
+                parts = re.split(r"--- PAGE (\d+) ---", text)
+                
+                for i in range(1, len(parts), 2):
+                    page_number = int(parts[i])
+                    page_text = parts[i + 1].strip()
+                    if not page_text:
+                        continue
 
-                # Only attach lightweight ID to document
-                for document in documents:
-                    document.metadata = {
-                        "paper_id": paper_id
-                    }
+                    document = Document(
+                        page_content=page_text,
+                        metadata={
+                            "paper_id": paper_id,
+                            "page_number": page_number
+                        }
+                    )
 
-                self.documents.extend(documents)
+                    self.documents.append(document)
         print(f"Loaded {len(self.documents)} documents.")
         print(f"Loaded metadata for {len(self.paper_metadata)} papers.")
 
@@ -132,7 +140,7 @@ class RAGClass:
 
                 For every factual claim:
                 - It must be supported by the retrieved context.
-                - Cite the corresponding source metadata with page numbers.
+                - Cite the corresponding source with page numbers.
 
                 If a claim cannot be supported by the retrieved context,
                 do not include it.
@@ -153,6 +161,7 @@ class RAGClass:
             """
             Paper: {title}
             Authors: {authors}
+            Page: {page_number}
             arXiv ID: {arxiv_id}
 
             Content:

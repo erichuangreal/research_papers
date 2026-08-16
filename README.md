@@ -1,3 +1,10 @@
+# Future improvements/goals
+1. Scale number of texts to 100, 500, 1000 without losing accuracy or efficiency
+2. Persist Chroma vector database to prevent costly recomputaitons
+3. Build working frontend
+4. Cross-paper examination
+5. Research gap identification: findings, strengths, limitations, stated future work
+
 # Goal
 The purpose of the data scraper is to preprocess and clean data from research papers to prepare for model training.
 
@@ -54,3 +61,10 @@ flowchart TD
         I --> J
         J --> K
     end
+
+
+Model Reliability Note
+
+Smaller or weaker language models may misinterpret retrieved chunks, give too much weight to less relevant evidence, or make claims that are not fully supported by the provided text. RAG reduces hallucination by grounding the model in retrieved sources, but it does not eliminate hallucinations.
+
+Testing has confirmed that models like gpt-nano and deepseek-v4-flash extract data from the wrong chunks. Currently the model is set to use gpt-4.
